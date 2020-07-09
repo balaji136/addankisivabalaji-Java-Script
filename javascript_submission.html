@@ -1,0 +1,299 @@
+<!Doctype HTML>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <title>Javascript</title>
+    <style>
+        *{
+          position: relative;
+          width:90%;
+          font-family:sans-serif;
+          box-sizing: border-box;
+          
+        }
+        
+        body{
+            
+            text-align: center;
+        
+        }
+        
+        input,select{
+            
+            border-color:black;
+            border-radius: 7px;
+            box-sizing: border-box;
+            padding: 15px;
+            font-size: 14px;
+           
+        }
+        label{
+            color:deeppink;  
+        }
+        
+        .btn{
+            border-color:bisque;
+            border-radius: 7px;
+            box-sizing: border-box;
+            padding: 15px;      
+            font-size: 20px;
+            background-color:deeppink;
+            width=80%;
+        }
+        
+        .btn:hover{
+            opacity: 1.5;
+            cursor: pointer;
+            background-color:black;
+            color:deeppink;
+            width=80%
+        }
+       
+        td{
+            
+            border-radius: 7px;
+            background-color: black; color:deeppink;
+            text-align: center;
+          
+        }
+        
+        td :hover{
+            cursor: pointer;
+            color:black;
+            background-color: deeppink;
+            border-radius: 7px;
+            
+        }
+       
+        
+        p{
+            color:deeppink;
+            text-align: center;
+        }
+       
+        #c2{  
+            display: none;
+        }
+        
+        @media screen and (max-width: 600px) {
+   #c1,#c2, #btn,td, {
+    width: 90%;
+    float:middle;
+  }
+    
+}
+        
+        
+    </style>
+   
+    </head>
+    <body>
+        
+    <center>
+        <button class='btn' id="button1" onclick="display_reg()">Registration </button><br><br>
+        <button class='btn' id="button2" onclick="display_login()">Login</button> <br><br>
+        <div id="c1">
+        <form name="reg"  onsubmit="return validate_reg()" method="post">
+        <input type="text" id="fname" placeholder="First name " /><br><p id='1'></p><br>
+            
+        <input type="text" id="lname" placeholder="Last name " /><br><p id='2'></p><br>
+        <label for="dob">Your birth date:</label><br>
+        <input type="date" id="dob" placeholder="Date of birth"/><br><p id='3'></p><br>
+        <input type="tel" id="phn" placeholder="Mobile number"/><br><p id='4'></p><br>
+        <input type="email" id="email" placeholder="Email id"/><br><p id='5'></p><br>
+        <input type="password" id="pwd" placeholder="Password"/><br>
+        <p> password length must be &gt=8 and &lt=15, one number, one special character, a small letter and a captial letter</p><p id='6'></p><br>
+        <input type="password" id="cpwd" placeholder="Confirm password"/><br><p id='7'></p><br>
+        <input type="submit" class="btn"  value="Register" />
+       </form>
+        </div>
+            
+            
+        <div id="c2">
+        <form name="reg"  onsubmit="return validate_login()" method="post">
+        <input type="email" id="email2" placeholder="Email id"/><br><br>
+    
+        <input type="password" id="pwd2" placeholder="Password"/><br><p id='8'></p><br>
+        <input type="submit" class="btn" value="Login"/>
+            </form>
+        </div>
+        </center>
+    <script>
+      var t1=""; 
+      var t2="";
+       
+    function validate_reg(){
+      
+        var fname=document.getElementById("fname").value;
+      
+        var lname=document.getElementById("lname").value;
+        
+        var dob=document.getElementById("dob").value;
+      
+        var phn=document.getElementById("phn").value;
+      
+        var email=document.getElementById("email").value;
+        window['tmp1']=email;
+        
+        var pwd=document.getElementById("pwd").value;
+        window['tmp2']=pwd;
+        
+        var cpwd=document.getElementById("cpwd").value;
+        
+        var flag=true;
+        //first name
+        
+        if(fname==null || fname.trim()=="")
+            {
+                document.getElementById('fname').style.borderColor="red";
+                document.getElementById('1').style.color="red";
+                document.getElementById('1').innerHTML="enter a valid name!";
+                flag=false;
+            }
+        else{
+            document.getElementById('fname').style.borderColor="deeppink";
+            document.getElementById('1').innerHTML="";
+        }
+       
+        
+        //last name
+        if(lname==null || lname.trim()=="")
+            {
+                document.getElementById('lname').style.borderColor="red";
+                document.getElementById('2').style.color="red";
+                document.getElementById('2').innerHTML="enter a valid name!";
+                flag=false;
+            }
+        else{
+            document.getElementById('lname').style.borderColor="deeppink";
+            document.getElementById('2').innerHTML="";
+        }
+        
+        // dob
+        var today=new Date();
+        if(dob!=null){  dob=dob.substring(0,4); mon=dob.substring(5,7); dt=dob.substring(7,9);}
+        if(dob==null || dob<1900 || (dob==(today.getFullYear()) && ((mon>today.getMonth()+1) || ((mon==today.getMonth()+1) && dt>today.getDate()) )))
+            {
+                document.getElementById('dob').style.borderColor="red";
+                document.getElementById('3').style.color="red";
+                document.getElementById('3').innerHTML="enter a valid date of birth!";
+                flag=false;
+            }
+        else{
+            document.getElementById('dob').style.borderColor="deeppink";
+            document.getElementById('3').innerHTML="";
+        }
+        
+        //mobile number
+        patt=/[^0-9]/g;
+        if(phn!=null) phn=phn.trim();
+        result=phn.match(patt);
+        if(result!=null) result=result.length;
+        if(phn==null || result!=null || phn.length!=10){
+                document.getElementById('phn').style.borderColor="red";
+                document.getElementById('4').style.color="red";
+                document.getElementById('4').innerHTML="enter a valid mobile number!";
+                flag=false;
+        }
+         else {
+             document.getElementById('phn').style.borderColor="deeppink";
+             document.getElementById('4').innerHTML="";
+        }
+        
+        //email
+        patt=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+        if(patt==false)
+            {
+                document.getElementById('email').style.borderColor="red";
+                document.getElementById('5').style.color="red";
+                document.getElementById('5').innerHTML="enter a valid mail id!"; 
+                flag=false;
+            }
+        else{
+             document.getElementById('email').style.borderColor="deeppink";
+             document.getElementById('5').innerHTML="";
+        }
+       
+        
+        //password
+        var f=true;
+        patt=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+        if(!pwd.match(patt))
+            {
+                document.getElementById('pwd').style.borderColor="red";
+                document.getElementById('6').style.color="red";
+                document.getElementById('6').innerHTML="enter a valid password following the given rule!"; 
+                flag=false;
+                f=false;
+                
+            }
+        else{
+                document.getElementById('pwd').style.borderColor="deeppink";
+                document.getElementById('6').innerHTML="";
+            }
+        //confirm password
+        if(pwd!=cpwd || f==false)
+            {
+                document.getElementById('cpwd').style.borderColor="red";
+                document.getElementById('7').style.color="red";
+                document.getElementById('7').innerHTML="password and confirm password do not match!"; 
+                flag=false; 
+            }
+        else{
+                document.getElementById('cpwd').style.borderColor="deeppink";
+                document.getElementById('7').innerHTML="";
+                
+        }
+        if(flag==true){
+            event.preventDefault();
+            document.getElementById('container2').style.visibility="visible";
+            document.getElementById('container1').style.display="hidden";
+            alert("Registration done!! Please login...");
+       }
+        else{
+            alert("invalid details were given...");
+        }
+        return flag;
+        
+        
+    }
+        function display_reg(){
+            document.getElementById('container1').style.display="block";
+            document.getElementById('container2').style.display="none";
+        }
+        
+        function display_login(){
+            document.getElementById('container2').style.display="block";
+            document.getElementById('container1').style.display="none";
+            
+        }
+        
+        function validate_login(){
+            
+            var usr=document.getElementById("email2").value;
+            var upwd=document.getElementById("pwd2").value;
+            if(t1==null || t1=="")
+                {
+                    alert("register before logging in");
+                }
+            
+            else{
+                if(usr==t1 && upwd==t2){
+                    document.getElementById('pwd2').style.borderColor="deeppink";
+                    document.getElementById('email2').style.borderColor="deeppink";
+                    document.getElementById('8').innerHTML="";
+                    alert("logged in successfully");
+                }
+                else{
+                    document.getElementById('pwd2').style.borderColor="red";
+                    document.getElementById('email2').style.borderColor="red";
+                    document.getElementById('8').innerHTML="incorrect password/email";
+                }
+            }
+          
+                
+        }
+    </script>
+         
+    </body>
+</html>
